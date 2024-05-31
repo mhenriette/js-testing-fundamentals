@@ -1,15 +1,48 @@
-const {sum, subtract} = require('../math')
+const { sum, subtract, sumAsync, subtractAsync } = require("../math");
 
-let result, expected
+// here we are going to write  automated  test for sum and substract methods to an error when something unexpected happens
 
-result = sum(3, 7)
-expected = 10
-if (result !== expected) {
-  throw new Error(`${result} is not equal to ${expected}`)
+// sum test
+test("sum test", () => {
+  const result = sum(5, 5);
+  expect(result).toBe(10);
+});
+
+// test for substract
+test("subtract", () => {
+  const result = subtract(5, 5);
+  expect(result).toBe(0);
+});
+
+// asynchronous sum test
+test("asynchronous sum", async () => {
+  const result = await sumAsync(5, 5);
+  expect(result).toBe(10);
+});
+
+// asynchronous subtract test
+
+test("Asynchronous subtract", async()=>{
+  const result = await subtractAsync(5, 5)
+  expect(result).toBe(0)
+})
+
+// Testing function
+function test(title, callback) {
+  try {
+    callback();
+    console.log(`✓ ${title}`);
+  } catch (error) {
+    console.error(`✕ ${title}`);
+  }
 }
 
-result = subtract(7, 3)
-expected = 4
-if (result !== expected) {
-  throw new Error(`${result} is not equal to ${expected}`)
+// Assertion method
+function expect(result) {
+  return {
+    toBe(expect) {
+      if (result !== expect)
+        throw new Error(`${result} is not equal to ${expect}}`);
+    },
+  };
 }
